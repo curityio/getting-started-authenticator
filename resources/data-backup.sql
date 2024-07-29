@@ -364,10 +364,10 @@ COMMENT ON COLUMN buckets.updated IS 'When this bucket was last updated';
 -- Restore the test user account and its password credential
 --
 
---COPY accounts (account_id, username, password, email, phone, attributes, active, created, updated) FROM stdin;
---#79b6852c-8062-403b-b0a9-3b19d7175233	12345678	\N	demo@user.com	07711	{"name": {"givenName": "Demo", "familyName": "User"}, "emails": [{"value": "demo@user.com", "primary": true}], "socialSecurityNumber": "12345", "agreeToTerms": "on", "phoneNumbers": [{"value": "07711", "primary": true}], "urn:se:curity:scim:2.0:Devices": []}	1	1708008810	1708008810
---\.
+COPY accounts (account_id, tenant_id, username, password, email, phone, attributes, active, created, updated) FROM stdin;
+d333465d-95af-48b2-adc0-90f55f91a972	\N	12345678	\N	demo@user.com	\N	{"name": {"givenName": "Demo", "familyName": "User"}, "emails": [{"value": "demo@user.com", "primary": true}], "socialSecurityNumber": "12345", "agreeToTerms": "on", "urn:se:curity:scim:2.0:Devices": []}	1	1722267452	1722267452
+\.
 
---COPY credentials (id, subject, password, attributes, created, updated) FROM stdin;
---6a273e20-6015-4243-8117-44379cadf582	12345678	$5$rounds=20000$p32Fp4ecezzC0BSk$kaqe1ol1ShkqespXd9QiX.NNRasd0nOOQiC6ES1wOiB	{}	2024-02-15 14:53:30.623009	2024-02-15 14:53:30.623009
---\.
+COPY credentials (id, tenant_id, subject, password, attributes, created, updated) FROM stdin;
+946c2c23-18e4-4788-b1ae-8984b2da8361	\N	12345678	$5$rounds=20000$fkgox6dXJVRlnKqe$PeHugbMoru/CXCkElZXyOKCRTq5u5SJpWg4Zmpk/Hq8	{}	2024-07-29 15:37:32.284081	2024-07-29 15:37:32.284081
+\.

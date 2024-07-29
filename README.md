@@ -1,10 +1,21 @@
 # Getting Started Authenticator
 
-An example authenticator plugin to teach the main foundational behaviors.
+An example authenticator plugin to teach the main foundational behaviors:
+
+- Implementing Forms and Navigation between them
+- Dealing with Input and Validation
+- Managing State and using Custom Data
 
 ## Example Use Case
 
+The authenticator follows a wizard that uses three screens to collect data, after which the user is authenticated:
 
+IMAGES
 
-getting-started-authenticator
-A getting started authenticator plugin to explain use of forms, handlers, navigation and custom data
+## HTTP Endpoints and Handlers
+
+- Each form has an HTTP endpoint and uses handlers
+- Handlers manage data and validation
+- Handlers use SDK objects to perform the deeper work
+
+## Advanced Cases

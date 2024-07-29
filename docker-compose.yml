@@ -9,7 +9,8 @@ services:
       LOGGING_LEVEL: 'INFO'
       BASE_URL: "${BASE_URL}"
     volumes:
-     - ./curity-config.xml:/opt/idsvr/etc/init/curity-config.xml
+     - ./license.json:/opt/idsvr/etc/init/license/license.json
+     - ./resources/curity-config.xml:/opt/idsvr/etc/init/curity-config.xml
      - ./target/example-authenticator-1.0.0-SNAPSHOT.jar:/opt/idsvr/usr/share/plugins/example-authenticator/example-authenticator-1.0.0-SNAPSHOT.jar
 
   curity-data:
@@ -17,7 +18,7 @@ services:
     hostname: dbserver
     volumes:
       - ./data:/var/lib/postgresql/data
-      - ./data-backup.sql:/docker-entrypoint-initdb.d/data-backup.sql
+      - ./resources/data-backup.sql:/docker-entrypoint-initdb.d/data-backup.sql
     environment:
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: 'Password1'

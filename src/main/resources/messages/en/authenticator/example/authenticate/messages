@@ -8,10 +8,10 @@ validation.error.patientid.format=The patient ID must be 8 numeric digits
 validation.error.password.required=Please enter your password
 validation.error.incorrect.credentials=The credentials entered were not valid
 
-view.ssn=Social Security Number
-view.dob=Date Of Birth
-validation.error.ssn.format=The social security number must be 10 characters
-validation.error.dob.format=Please enter your date of birth in the format YYYY/MM/DD
+view.social-security-number=Social Security Number
+view.date-of-birth=Date Of Birth
+validation.error.social-security-number.format=The social security number must be 10 characters
+validation.error.date-of-birth.format=Please enter your date of birth in the format YYYY/MM/DD
 
 view.next=Next
 view.continue=Continue

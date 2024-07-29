@@ -20,7 +20,7 @@ class ExampleAuthenticatorPluginDescriptor : AuthenticatorPluginDescriptor<Examp
 
         mapOf(
             "index" to UserCredentialsRequestHandler::class.java,
-            "userinfo" to UserDetailsRequestHandler::class.java,
+            "userdetails" to UserDetailsRequestHandler::class.java,
             "success" to SuccessRequestHandler::class.java
         )
 
@@ -28,7 +28,7 @@ class ExampleAuthenticatorPluginDescriptor : AuthenticatorPluginDescriptor<Examp
 
         mapOf(
             "authenticate/usercredentials" to UserCredentialsRepresentationFunction::class.java,
-            "authenticate/userinfo" to UserCredentialsRepresentationFunction::class.java,
+            "authenticate/userdetails" to UserCredentialsRepresentationFunction::class.java,
             "authenticate/success" to UserCredentialsRepresentationFunction::class.java,
         )
 }

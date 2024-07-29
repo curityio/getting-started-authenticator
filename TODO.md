@@ -1,8 +1,3 @@
-# TASKS
-
-- Add a GitHub repo and a dev branch and do an initial checkin
-  Take care over docs
- 
 ## Doc
 
 - Frontend Development
@@ -21,9 +16,6 @@
   https://curity.io/docs/idsvr/latest/developer-guide/haapi/index.html
 
 ## Tasks
-
-- Create user 12345678 / Password1 with the HTML form and do an export
-  Redeploy and use working authentication for the pre-shipped user account 
 
 - Password validation failures to maintain input
 

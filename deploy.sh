@@ -3,9 +3,16 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
 #
+# Check for a license file
+#
+if [ ! -f ./license.json ]; then
+  echo 'Please copy a license.json file into the root folder'
+  exit 1
+fi
+
+#
 # Build the latest plugin
 #
-cd ..
 mvn package
 if [ $? -ne 0 ]; then
   echo 'Problem encountered building plugin code'
@@ -29,7 +36,5 @@ export BASE_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[] 
 #
 # Deploy it with an instance of the Curity Identity Server
 #
-cp ./target/*.jar ./deploy/example/
-cd deploy
 docker compose down
 docker compose up

@@ -64,11 +64,7 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
         val subjectAttributes = SubjectAttributes.of(model?.patientId)
         val result = _config.getCredentialManager().verify(subjectAttributes, model?.password)
 
-        _logger.error("*** DEBUG ***")
-        _logger.error("*** USING: ${model?.patientId} and ${model?.password}: result is $result")
-        _logger.error("*** DEBUG ***")
-
-        if (result == CredentialVerificationResult::Accepted)
+        if (result is CredentialVerificationResult.Accepted)
         {
             // Navigate to the next page of the authentication wizard
             throw _config.exceptionFactory.redirectException(
