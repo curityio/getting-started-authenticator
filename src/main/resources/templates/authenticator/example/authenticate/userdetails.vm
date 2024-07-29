@@ -1,0 +1,22 @@
+#if($_postBack && $_postBack["socialSecurityNumber"])
+    #set($socialSecurityNumberValue = $_postBack["socialSecurityNumber"])
+#end
+#if($_postBack && $_postBack["dateOfBirth"])
+    #set(dateOfBirth = $_postBack["dateOfBirth"])
+#end
+
+#define ($_body)
+<h2>#message("authenticator.example.authenticate.meta.title.userdetails")</h2>
+<form method="post">
+
+    <label for="socialSecurityNumber" class="$!_errorClass">#message("authenticator.example.authenticate.view.ssn")</label>
+    <input type="text" id="socialSecurityNumber" name="socialSecurityNumber" class="block full-width mb1 field-light $!_errorClass" autocapitalize="none" value="$!socialSecurityNumberValue">
+
+    <label for="password">#message("authenticator.example.authenticate.view.dob")</label>
+    <input type="dateOfBirth" name="dateOfBirth" class="block full-width mb1 field-light">
+
+    <button type="submit" class="button button-fullwidth button-primary">#message("authenticator.example.authenticate.view.next")</button>
+</form>
+#end
+
+#parse("layouts/default")
