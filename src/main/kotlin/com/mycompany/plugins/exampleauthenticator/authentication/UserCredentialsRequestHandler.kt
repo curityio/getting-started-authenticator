@@ -17,13 +17,13 @@ import se.curity.identityserver.sdk.web.alerts.ErrorMessage
 import java.util.*
 
 /*
- * Screen 1 of the wizard based authenticator
+ * Screen 1 of the wizard based authenticator verifies a username and password
  */
 class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPluginConfig) :
     AuthenticatorRequestHandler<UserCredentialsRequestModel> {
 
     /*
-     * The preProcess handler indicates the HTML forms to render on success or failure
+     * The preProcess method indicates the HTML forms to render on success or failure
      */
     override fun preProcess(request: Request, response: Response): UserCredentialsRequestModel
     {
@@ -47,7 +47,7 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
     }
 
     /*
-     * The get handler can run auto-actions or update the display if needed
+     * This handler requires no custom page load logic
      */
     override fun get(requestModel: UserCredentialsRequestModel, response: Response): Optional<AuthenticationResult>
     {
@@ -55,7 +55,7 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
     }
 
     /*
-     * The post handler does the main proof verification
+     * The post handler does the main proof verification after the basic model validation
      */
     override fun post(requestModel: UserCredentialsRequestModel, response: Response): Optional<AuthenticationResult>
     {
@@ -84,7 +84,7 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
     }
 
     /*
-     * This is called if the validation annotations fail
+     * When model validation fails, this method ensures that the user input is maintained
      */
     override fun onRequestModelValidationFailure(
         request: Request,
@@ -93,7 +93,6 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
     ) {
 
         // Post back data to avoid losing user input
-        _logger.error("*** HIBERNATE VALIDATION FAILURE ***")
         if (request.isPostRequest) {
             val model = Post(request)
             response.putViewData("_postBack", model.dataOnError(), ResponseModelScope.FAILURE)
@@ -101,7 +100,7 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
     }
 
     /*
-     * The logged can output messages during troubleshooting
+     * The logger can output messages during troubleshooting
      */
     companion object {
         private val _logger: Logger = LoggerFactory.getLogger(UserCredentialsRequestHandler::class.java)

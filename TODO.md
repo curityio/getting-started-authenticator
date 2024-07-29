@@ -15,39 +15,52 @@
 - HAAPI
   https://curity.io/docs/idsvr/latest/developer-guide/haapi/index.html
 
-## Tasks
+## Code Tasks
 
-- Password validation failures to maintain input
+Start with web and then do HAAPI
 
-- Screen 2 to complete
-  Use session to get there, with username
+### Phase 1
 
-- Screen 3 to implement
-
-- Custom JavaScript to limit numeric values for form 1
- 
+- Screen 2 request model
+- handler / post validation failures to maintain input
+  Use session to communicate data
+- Custom labels for screens 2 and 3
+- Custom JavaScript to limit numeric values
+- Custom JavaScript for date picker with third party dependency 
 - Set server variable to describe password policy and act on that in JavaScript
-
-- Date of Birth in Date Picker
-
 - Custom image with green tick
-  See UI Builder for other icons and handling of images
+- Run in UI Builder
 
-## PreProcess Handlers
+### Phase 2
+
+- Same behaviors in HAAPI
+
+## Doc Tasks
+
+Explain main concepts
+
+### PreProcess Handlers
 
 - Can return a get form or a post form
 - Can supply data for autofill
 - Can return different forms depending on the HTTP status
 
-## Get Handlers
+### Get Handlers
 
 - Get handler usually just renders a form
 - Get handler might run logic automatically, eg reset password and return null
 - Get handler can update display based on properties of SDK objects
 
-## Post Handlers
+### Post Handlers
 
 - Get form data and validate it 
 - Set a response model and status code
 - Put form data to response to maintain the user input
 - Request model or deeper validation failure
+
+## Other Behaviors
+
+- Research on other plugins
+- Polling / Waiting
+- Links
+- Other Input Elements
