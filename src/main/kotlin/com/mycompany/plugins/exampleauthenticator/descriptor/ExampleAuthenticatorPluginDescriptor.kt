@@ -1,8 +1,8 @@
 package com.mycompany.plugins.exampleauthenticator.descriptor
 
-import com.mycompany.plugins.exampleauthenticator.authentication.SuccessRequestHandler
-import com.mycompany.plugins.exampleauthenticator.authentication.UserCredentialsRequestHandler
-import com.mycompany.plugins.exampleauthenticator.authentication.UserDetailsRequestHandler
+import com.mycompany.plugins.exampleauthenticator.handlers.SuccessRequestHandler
+import com.mycompany.plugins.exampleauthenticator.handlers.UserCredentialsRequestHandler
+import com.mycompany.plugins.exampleauthenticator.handlers.UserDetailsRequestHandler
 import com.mycompany.plugins.exampleauthenticator.config.ExampleAuthenticatorPluginConfig
 import com.mycompany.plugins.exampleauthenticator.representations.UserCredentialsRepresentationFunction
 import se.curity.identityserver.sdk.authentication.AuthenticatorRequestHandler

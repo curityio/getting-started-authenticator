@@ -365,7 +365,7 @@ COMMENT ON COLUMN buckets.updated IS 'When this bucket was last updated';
 --
 
 COPY accounts (account_id, tenant_id, username, password, email, phone, attributes, active, created, updated) FROM stdin;
-d333465d-95af-48b2-adc0-90f55f91a972	\N	12345678	\N	demo@user.com	\N	{"name": {"givenName": "Demo", "familyName": "User"}, "emails": [{"value": "demo@user.com", "primary": true}], "socialSecurityNumber": "12345", "dateOfBirth": "19820729" "agreeToTerms": "on", "urn:se:curity:scim:2.0:Devices": []}	1	1722267452	1722267452
+d333465d-95af-48b2-adc0-90f55f91a972	\N	12345678	\N	demo@user.com	\N	{"name": {"givenName": "Demo", "familyName": "User"}, "emails": [{"value": "demo@user.com", "primary": true}], "socialSecurityNumber": "AB11223344", "dateOfBirth": "19900630", "agreeToTerms": "on", "urn:se:curity:scim:2.0:Devices": []}	1	1722267452	1722267452
 \.
 
 COPY credentials (id, tenant_id, subject, password, attributes, created, updated) FROM stdin;

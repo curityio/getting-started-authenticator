@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.authentication
+package com.mycompany.plugins.exampleauthenticator.handlers
 
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
@@ -11,19 +11,19 @@ import se.curity.identityserver.sdk.web.Request
 class UserCredentialsRequestModel(request: Request)
 {
     @Valid
-    val postRequestModel: Post? = if (request.isPostRequest) Post(request) else null
+    val postRequestModel: UserCredentialsPost? = if (request.isPostRequest) UserCredentialsPost(request) else null
 }
 
 /*
  * The post model deals with validating patient ID and password inputs
  */
-class Post(request: Request)
+class UserCredentialsPost(request: Request)
 {
     private val PATIENT_ID_PARAM = "patientId"
     private val PASSWORD_PARAM = "password"
 
     // In this example, the patient ID must be 8 numeric digits
-    @Pattern(regexp = "^[0-9]{8}$")
+    @Pattern(regexp = "^[0-9]{8}$", message = "validation.error.patientid.format")
     val patientId: String? = request.getFormParameterValueOrError(PATIENT_ID_PARAM)
 
     @NotBlank(message = "validation.error.password.required")

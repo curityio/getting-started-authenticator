@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.authentication
+package com.mycompany.plugins.exampleauthenticator.handlers
 
 import com.mycompany.plugins.exampleauthenticator.config.ExampleAuthenticatorPluginConfig
 import se.curity.identityserver.sdk.authentication.AuthenticationResult
@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.util.*
 
 /*
- * Screen 3 of the wizard based authenticator just displays a success message
+ * Form 3 of the authentication wizard just displays a success message and sets the authenticated result
  */
 class SuccessRequestHandler(private val _config: ExampleAuthenticatorPluginConfig) :
     AuthenticatorRequestHandler<SuccessRequestModel> {
@@ -45,7 +45,7 @@ class SuccessRequestHandler(private val _config: ExampleAuthenticatorPluginConfi
     }
 
     /*
-     * The logged can output messages during troubleshooting
+     * The logger can output messages during troubleshooting
      */
     companion object {
         private val _logger: Logger = LoggerFactory.getLogger(SuccessRequestHandler::class.java)

@@ -1,8 +1,9 @@
-package com.mycompany.plugins.exampleauthenticator.authentication
+package com.mycompany.plugins.exampleauthenticator.handlers
 
 import com.mycompany.plugins.exampleauthenticator.config.ExampleAuthenticatorPluginConfig
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import se.curity.identityserver.sdk.attribute.Attribute
 import se.curity.identityserver.sdk.attribute.SubjectAttributes
 import se.curity.identityserver.sdk.authentication.AuthenticationResult
 import se.curity.identityserver.sdk.authentication.AuthenticatorRequestHandler
@@ -17,10 +18,11 @@ import se.curity.identityserver.sdk.web.alerts.ErrorMessage
 import java.util.*
 
 /*
- * Screen 1 of the wizard based authenticator verifies a username and password
+ * Form 1 of the authentication wizard verifies a username and password
  */
 class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPluginConfig) :
-    AuthenticatorRequestHandler<UserCredentialsRequestModel> {
+    AuthenticatorRequestHandler<UserCredentialsRequestModel>
+{
 
     /*
      * The preProcess method indicates the HTML forms to render on success or failure
@@ -66,21 +68,20 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
 
         if (result is CredentialVerificationResult.Accepted)
         {
-            // Navigate to the next page of the authentication wizard
+            // On success, save the patient ID to the session and navigate to the next form of the authentication wizard
+            _config.sessionManager.put(Attribute.of("patientId", model?.patientId));
             throw _config.exceptionFactory.redirectException(
                 "${_config.authenticatorInformationProvider.fullyQualifiedAuthenticationUri}/userdetails",
                 RedirectStatusCode.MOVED_TEMPORARILY)
         }
-        else
-        {
-            // If the deeper validation fails, post back data to avoid losing user input
-            response.addErrorMessage(ErrorMessage.withMessage("validation.error.incorrect.credentials"))
-            response.setResponseModel(
-                templateResponseModel(model?.dataOnError(), "authenticate/usercredentials"),
-                HttpStatus.BAD_REQUEST
-            )
-            return Optional.empty()
-        }
+
+        // If the deeper validation fails, post back data to avoid losing user input
+        response.addErrorMessage(ErrorMessage.withMessage("validation.error.incorrect.credentials"))
+        response.setResponseModel(
+            templateResponseModel(model?.dataOnError(), "authenticate/usercredentials"),
+            HttpStatus.BAD_REQUEST
+        )
+        return Optional.empty()
     }
 
     /*
@@ -90,11 +91,11 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
         request: Request,
         response: Response,
         errorMessages: Set<ErrorMessage?>?
-    ) {
-
+    )
+    {
         // Post back data to avoid losing user input
         if (request.isPostRequest) {
-            val model = Post(request)
+            val model = UserCredentialsPost(request)
             response.putViewData("_postBack", model.dataOnError(), ResponseModelScope.FAILURE)
         }
     }

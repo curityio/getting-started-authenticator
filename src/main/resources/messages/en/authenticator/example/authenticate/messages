@@ -10,8 +10,11 @@ validation.error.incorrect.credentials=The credentials entered were not valid
 
 view.social-security-number=Social Security Number
 view.date-of-birth=Date Of Birth
-validation.error.social-security-number.format=The social security number must be 10 characters
+validation.error.social-security-number.format=Please enter your social security number
 validation.error.date-of-birth.format=Please enter your date of birth in the format YYYY/MM/DD
+validation.error.social-security-number.required=Please enter your social security number
+validation.error.incorrect.social-security-number=The social security number does not match your account
+validation.error.incorrect.date-of-birth=The date of birth does not match your account
 
 view.next=Next
 view.continue=Continue

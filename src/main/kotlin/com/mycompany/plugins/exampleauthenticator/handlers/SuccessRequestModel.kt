@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.authentication
+package com.mycompany.plugins.exampleauthenticator.handlers
 
 import se.curity.identityserver.sdk.web.Request
 

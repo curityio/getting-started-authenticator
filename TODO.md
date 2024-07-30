@@ -22,6 +22,7 @@ Start with web and then do HAAPI
 ### Phase 1
 
 - Screen 2 request model
+- Watermarks
 - handler / post validation failures to maintain input
   Use session to communicate data
 - Custom labels for screens 2 and 3

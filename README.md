@@ -12,6 +12,13 @@ The authenticator follows a wizard that uses three screens to collect data, afte
 
 IMAGES
 
+## Valid Authentication Details
+
+- Patient ID: 11223344
+- Password: Password1
+- Social Security Number: AB11223344
+- Date of Birth: 1990/06/30
+
 ## HTTP Endpoints and Handlers
 
 - Each form has an HTTP endpoint and uses handlers
