@@ -1,9 +1,10 @@
 package com.mycompany.plugins.exampleauthenticator.handlers
 
 import com.mycompany.plugins.exampleauthenticator.config.ExampleAuthenticatorPluginConfig
+import com.mycompany.plugins.exampleauthenticator.models.UserDetailsPost
+import com.mycompany.plugins.exampleauthenticator.models.UserDetailsRequestModel
 import se.curity.identityserver.sdk.authentication.AuthenticationResult
 import se.curity.identityserver.sdk.authentication.AuthenticatorRequestHandler
-import se.curity.identityserver.sdk.http.HttpStatus
 import se.curity.identityserver.sdk.http.RedirectStatusCode
 import se.curity.identityserver.sdk.web.Request
 import se.curity.identityserver.sdk.web.Response
@@ -32,14 +33,7 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
             templateResponseModel(
                 emptyMap(),
                 "authenticate/userdetails"
-            ), ResponseModelScope.NOT_FAILURE
-        )
-
-        response.setResponseModel(
-            templateResponseModel(
-                emptyMap(),
-                "authenticate/userdetails"
-            ), HttpStatus.BAD_REQUEST
+            ), ResponseModelScope.ANY
         )
 
         return UserDetailsRequestModel(request)
@@ -100,7 +94,6 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
             )
         }
 
-        _logger.error("*** POSTBACK ON FAILURE {}", model!!.dataOnError()["socialSecurityNumber"])
         response.putViewData("_postBack", model?.dataOnError(), ResponseModelScope.FAILURE)
         return Optional.empty()
     }

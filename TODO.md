@@ -17,28 +17,12 @@
 
 ## Code Tasks
 
-Start with web and then do HAAPI
-
-### Phase 1
-
-- Screen 2 request model
-- Watermarks
-- handler / post validation failures to maintain input
-  Use session to communicate data
-- Custom labels for screens 2 and 3
-- Custom JavaScript to limit numeric values
-- Custom JavaScript for date picker with third party dependency 
-- Set server variable to describe password policy and act on that in JavaScript
-- Custom image with green tick
-- Run in UI Builder
-
-### Phase 2
-
-- Same behaviors in HAAPI
+Get HAAPI working in the same way
 
 ## Doc Tasks
 
-Explain main concepts
+- Explain main concepts first
+- Then explain additive techniques like polling 
 
 ### PreProcess Handlers
 
@@ -62,6 +46,7 @@ Explain main concepts
 ## Other Behaviors
 
 - Research on other plugins
+- Write about date picker
 - Polling / Waiting
 - Links
 - Other Input Elements

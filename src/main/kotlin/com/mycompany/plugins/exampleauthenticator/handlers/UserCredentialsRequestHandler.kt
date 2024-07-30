@@ -1,13 +1,14 @@
 package com.mycompany.plugins.exampleauthenticator.handlers
 
 import com.mycompany.plugins.exampleauthenticator.config.ExampleAuthenticatorPluginConfig
+import com.mycompany.plugins.exampleauthenticator.models.UserCredentialsPost
+import com.mycompany.plugins.exampleauthenticator.models.UserCredentialsRequestModel
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import se.curity.identityserver.sdk.attribute.Attribute
 import se.curity.identityserver.sdk.attribute.SubjectAttributes
 import se.curity.identityserver.sdk.authentication.AuthenticationResult
 import se.curity.identityserver.sdk.authentication.AuthenticatorRequestHandler
-import se.curity.identityserver.sdk.http.HttpStatus
 import se.curity.identityserver.sdk.http.RedirectStatusCode
 import se.curity.identityserver.sdk.service.credential.CredentialVerificationResult
 import se.curity.identityserver.sdk.web.Request
@@ -35,14 +36,7 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
             templateResponseModel(
                 data,
                 "authenticate/usercredentials"
-            ), ResponseModelScope.NOT_FAILURE
-        )
-
-        response.setResponseModel(
-            templateResponseModel(
-                data,
-                "authenticate/usercredentials"
-            ), HttpStatus.BAD_REQUEST
+            ), ResponseModelScope.ANY
         )
 
         return UserCredentialsRequestModel(request)

@@ -8,9 +8,9 @@ import java.net.URI
 import java.util.*
 
 /*
- * The HAAPI representation for form 1 of the authentication wizard
+ * The HAAPI representation for form 2 of the authentication wizard
  */
-class UserCredentialsRepresentationFunction : RepresentationFunction {
+class UserDetailsRepresentationFunction : RepresentationFunction {
 
     override fun apply(model: RepresentationModel, factory: RepresentationFactory): Representation {
 
@@ -23,11 +23,11 @@ class UserCredentialsRepresentationFunction : RepresentationFunction {
                 URI.create(postbackUrl),
                 HttpMethod.POST,
                 MediaType.X_WWW_FORM_URLENCODED,
-                Message.ofKey("meta.title.usercredentials"),
+                Message.ofKey("meta.title.userdetails"),
                 Message.ofKey("view.next")
             ) { fields ->
-                fields.addUsernameField("accountId", Message.ofKey("view.accountId"), "")
-                fields.addPasswordField("password", Message.ofKey("view.password"))
+                fields.addUsernameField("social-security-number", Message.ofKey("view.social-security-number"), "")
+                fields.addPasswordField("date-of-birth", Message.ofKey("view.date-of-birth"))
             }
         }
     }

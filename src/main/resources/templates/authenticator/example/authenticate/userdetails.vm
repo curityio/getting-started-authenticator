@@ -22,7 +22,7 @@
     #parse("fragments/jquery")
     <script type="text/javascript" $!nonceAttr>
         jQuery(document).ready(function() {
-            // console.log('*** User details form custom client-side logic goes here ...')
+            // Custom client-side logic could go here
         })
     </script>
 </form>
