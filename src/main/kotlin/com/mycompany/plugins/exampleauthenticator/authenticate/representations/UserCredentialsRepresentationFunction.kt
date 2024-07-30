@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.representations
+package com.mycompany.plugins.exampleauthenticator.authenticate.handlers.representations
 
 import se.curity.identityserver.sdk.haapi.*
 import se.curity.identityserver.sdk.http.HttpMethod
@@ -15,6 +15,7 @@ class UserCredentialsRepresentationFunction : RepresentationFunction {
     override fun apply(model: RepresentationModel, factory: RepresentationFactory): Representation {
 
         val postbackUrl = model.getString("_authUrl")
+        val userNameValue = ""
 
         return factory.newAuthenticationStep { step: AuthenticationStepConfigurator ->
 
@@ -23,11 +24,11 @@ class UserCredentialsRepresentationFunction : RepresentationFunction {
                 URI.create(postbackUrl),
                 HttpMethod.POST,
                 MediaType.X_WWW_FORM_URLENCODED,
-                Message.ofKey("meta.title.usercredentials"),
-                Message.ofKey("view.next")
+                Message.ofKey("authenticator.example.authenticate.meta.title.usercredentials"),
+                Message.ofKey("authenticator.example.authenticate.view.next")
             ) { fields ->
-                fields.addUsernameField("accountId", Message.ofKey("view.accountId"), "")
-                fields.addPasswordField("password", Message.ofKey("view.password"))
+                fields.addUsernameField("accountId", Message.ofKey("authenticator.example.authenticate.view.accountid"), userNameValue)
+                fields.addPasswordField("password", Message.ofKey("authenticator.example.authenticate.view.password"))
             }
         }
     }

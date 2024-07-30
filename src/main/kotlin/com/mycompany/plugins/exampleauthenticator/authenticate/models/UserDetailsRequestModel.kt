@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.models
+package com.mycompany.plugins.exampleauthenticator.authenticate.handlers.models
 
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank
@@ -31,7 +31,6 @@ class UserDetailsPost(request: Request)
         val data = HashMap<String, Any>(1)
         data[SOCIAL_SECURITY_NUMBER_PARAM] = socialSecurityNumber ?: ""
         data[DATE_OF_BIRTH_PARAM] = dateOfBirth ?: ""
-        println("*** SSN IS $socialSecurityNumber ***")
         return data
     }
 }

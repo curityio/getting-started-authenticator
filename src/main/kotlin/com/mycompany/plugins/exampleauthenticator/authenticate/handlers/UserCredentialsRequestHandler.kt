@@ -1,8 +1,8 @@
-package com.mycompany.plugins.exampleauthenticator.handlers
+package com.mycompany.plugins.exampleauthenticator.authenticate.handlers
 
 import com.mycompany.plugins.exampleauthenticator.config.ExampleAuthenticatorPluginConfig
-import com.mycompany.plugins.exampleauthenticator.models.UserCredentialsPost
-import com.mycompany.plugins.exampleauthenticator.models.UserCredentialsRequestModel
+import com.mycompany.plugins.exampleauthenticator.authenticate.handlers.models.UserCredentialsPost
+import com.mycompany.plugins.exampleauthenticator.authenticate.handlers.models.UserCredentialsRequestModel
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import se.curity.identityserver.sdk.attribute.Attribute

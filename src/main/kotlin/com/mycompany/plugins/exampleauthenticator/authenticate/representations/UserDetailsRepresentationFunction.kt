@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.representations
+package com.mycompany.plugins.exampleauthenticator.authenticate.handlers.representations
 
 import se.curity.identityserver.sdk.haapi.*
 import se.curity.identityserver.sdk.http.HttpMethod
@@ -14,20 +14,23 @@ class UserDetailsRepresentationFunction : RepresentationFunction {
 
     override fun apply(model: RepresentationModel, factory: RepresentationFactory): Representation {
 
-        val postbackUrl = model.getString("_authUrl")
+        val baseUrl = model.getString("_authUrl")
+        val postbackUrl = "$baseUrl/userdetails"
+        val socialSecurityNumberValue = ""
+        val dateOfBirthValue = ""
 
         return factory.newAuthenticationStep { step: AuthenticationStepConfigurator ->
 
             step.addFormAction(
-                HaapiContract.Actions.Kinds.LOGIN,
+                HaapiContract.Actions.Kinds.CONTINUE,
                 URI.create(postbackUrl),
                 HttpMethod.POST,
                 MediaType.X_WWW_FORM_URLENCODED,
-                Message.ofKey("meta.title.userdetails"),
-                Message.ofKey("view.next")
+                Message.ofKey("authenticator.example.authenticate.meta.title.userdetails"),
+                Message.ofKey("authenticator.example.authenticate.view.next")
             ) { fields ->
-                fields.addUsernameField("social-security-number", Message.ofKey("view.social-security-number"), "")
-                fields.addPasswordField("date-of-birth", Message.ofKey("view.date-of-birth"))
+                fields.addTextField("socialSecurityNumber", Message.ofKey("authenticator.example.authenticate.view.social-security-number"), socialSecurityNumberValue)
+                fields.addTextField("dateOfBirth", Message.ofKey("authenticator.example.authenticate.view.date-of-birth"), dateOfBirthValue)
             }
         }
     }

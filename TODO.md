@@ -15,10 +15,6 @@
 - HAAPI
   https://curity.io/docs/idsvr/latest/developer-guide/haapi/index.html
 
-## Code Tasks
-
-Get HAAPI working in the same way
-
 ## Doc Tasks
 
 - Explain main concepts first

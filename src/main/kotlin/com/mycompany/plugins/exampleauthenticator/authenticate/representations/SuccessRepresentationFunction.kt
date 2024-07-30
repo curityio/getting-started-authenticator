@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.representations
+package com.mycompany.plugins.exampleauthenticator.authenticate.handlers.representations
 
 import se.curity.identityserver.sdk.haapi.*
 import se.curity.identityserver.sdk.http.HttpMethod
@@ -14,17 +14,18 @@ class SuccessRepresentationFunction : RepresentationFunction {
 
     override fun apply(model: RepresentationModel, factory: RepresentationFactory): Representation {
 
-        val postbackUrl = model.getString("_authUrl")
+        val baseUrl = model.getString("_authUrl")
+        val postbackUrl = "$baseUrl/success"
 
         return factory.newAuthenticationStep { step: AuthenticationStepConfigurator ->
 
             step.addFormAction(
-                HaapiContract.Actions.Kinds.LOGIN,
+                HaapiContract.Actions.Kinds.CONTINUE,
                 URI.create(postbackUrl),
                 HttpMethod.POST,
                 MediaType.X_WWW_FORM_URLENCODED,
-                Message.ofKey("meta.title.success"),
-                Message.ofKey("view.next")
+                Message.ofKey("authenticator.example.authenticate.meta.title.success"),
+                Message.ofKey("authenticator.example.authenticate.view.next")
             )
         }
     }
