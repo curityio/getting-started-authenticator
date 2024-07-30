@@ -15,16 +15,16 @@ class UserCredentialsRequestModel(request: Request)
 }
 
 /*
- * The post model deals with validating patient ID and password inputs
+ * The post model deals with validating account ID and password inputs
  */
 class UserCredentialsPost(request: Request)
 {
-    private val PATIENT_ID_PARAM = "patientId"
+    private val ACCOUNT_ID_PARAM = "accountId"
     private val PASSWORD_PARAM = "password"
 
-    // In this example, the patient ID must be 8 numeric digits
-    @Pattern(regexp = "^[0-9]{8}$", message = "validation.error.patientid.format")
-    val patientId: String? = request.getFormParameterValueOrError(PATIENT_ID_PARAM)
+    // In this example, the account ID must be 8 numeric digits
+    @Pattern(regexp = "^[0-9]{8}$", message = "validation.error.accountid.format")
+    val accountId: String? = request.getFormParameterValueOrError(ACCOUNT_ID_PARAM)
 
     @NotBlank(message = "validation.error.password.required")
     val password: String? = request.getFormParameterValueOrError(PASSWORD_PARAM)
@@ -32,7 +32,7 @@ class UserCredentialsPost(request: Request)
     // Maintain user input if there has been a validation error
     fun dataOnError(): Map<String, Any> {
         val data = HashMap<String, Any>(1)
-        data[PATIENT_ID_PARAM] = patientId ?: ""
+        data[ACCOUNT_ID_PARAM] = accountId ?: ""
         return data
     }
 }

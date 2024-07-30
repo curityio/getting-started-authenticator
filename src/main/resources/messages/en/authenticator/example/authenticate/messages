@@ -1,10 +1,10 @@
 meta.title.usercredentials=Enter Your Credentials
 meta.title.userdetails=Confirm Your Details
-meta.title.success=You are Authenticated
+meta.title.success=Authentication Successful
 
-view.patientid=Patient ID
+view.accountid=Account ID
 view.password=Password
-validation.error.patientid.format=The patient ID must be 8 numeric digits
+validation.error.accountid.format=The account ID must be 8 numeric digits
 validation.error.password.required=Please enter your password
 validation.error.incorrect.credentials=The credentials entered were not valid
 

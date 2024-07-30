@@ -1,8 +1,10 @@
-#if($_postBack && $_postBack["socialSecurityNumber"])
-    #set($socialSecurityNumberValue = $_postBack["socialSecurityNumber"])
-#end
-#if($_postBack && $_postBack["dateOfBirth"])
-    #set($dateOfBirth = $_postBack["dateOfBirth"])
+#if($_postBack)
+  #if($_postBack.socialSecurityNumber)
+    #set($socialSecurityNumberValue = $_postBack.socialSecurityNumber)
+  #end
+  #if($_postBack.dateOfBirth)
+    #set($dateOfBirthValue = $_postBack.dateOfBirth)
+  #end
 #end
 
 #define ($_body)
@@ -10,12 +12,19 @@
 <form method="post">
 
     <label for="socialSecurityNumber" class="$!_errorClass">#message("authenticator.example.authenticate.view.social-security-number")</label>
-    <input type="text" id="socialSecurityNumber" name="socialSecurityNumber" class="block full-width mb1 field-light $!_errorClass" autocapitalize="none" value="$!socialSecurityNumberValue">
+    <input type="text" id="socialSecurityNumber" name="socialSecurityNumber" autocomplete="off" class="block full-width mb1 field-light" value="$!socialSecurityNumberValue">
 
     <label for="dateOfBirth">#message("authenticator.example.authenticate.view.date-of-birth")</label>
-    <input type="text" name="dateOfBirth" class="block full-width mb1 field-light">
+    <input type="text" id="dateOfBirth" name="dateOfBirth" autocomplete="off" class="block full-width mb1 field-light" value="$!dateOfBirthValue">
 
     <button type="submit" class="button button-fullwidth button-primary">#message("authenticator.example.authenticate.view.next")</button>
+
+    #parse("fragments/jquery")
+    <script type="text/javascript" $!nonceAttr>
+        jQuery(document).ready(function() {
+            // console.log('*** User details form custom client-side logic goes here ...')
+        })
+    </script>
 </form>
 #end
 

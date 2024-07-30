@@ -1,3 +1,5 @@
+#set ($page_symbol = $page_symbol_done)
+
 #define ($_body)
 <h2>#message("authenticator.example.authenticate.meta.title.success")</h2>
 <form method="post">

@@ -61,15 +61,15 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
      */
     override fun post(requestModel: UserCredentialsRequestModel, response: Response): Optional<AuthenticationResult>
     {
-        // Use an SDK object to validate the patient ID and password
+        // Use an SDK object to validate the account ID and password
         val model = requestModel.postRequestModel
-        val subjectAttributes = SubjectAttributes.of(model?.patientId)
+        val subjectAttributes = SubjectAttributes.of(model?.accountId)
         val result = _config.getCredentialManager().verify(subjectAttributes, model?.password)
 
         if (result is CredentialVerificationResult.Accepted)
         {
-            // On success, save the patient ID to the session and navigate to the next form of the authentication wizard
-            _config.sessionManager.put(Attribute.of("patientId", model?.patientId));
+            // On success, save the account ID to the session and navigate to the next form of the authentication wizard
+            _config.sessionManager.put(Attribute.of("accountId", model?.accountId));
             throw _config.exceptionFactory.redirectException(
                 "${_config.authenticatorInformationProvider.fullyQualifiedAuthenticationUri}/userdetails",
                 RedirectStatusCode.MOVED_TEMPORARILY)
@@ -77,10 +77,7 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
 
         // If the deeper validation fails, post back data to avoid losing user input
         response.addErrorMessage(ErrorMessage.withMessage("validation.error.incorrect.credentials"))
-        response.setResponseModel(
-            templateResponseModel(model?.dataOnError(), "authenticate/usercredentials"),
-            HttpStatus.BAD_REQUEST
-        )
+        response.putViewData("_postBack", model?.dataOnError(), ResponseModelScope.FAILURE)
         return Optional.empty()
     }
 

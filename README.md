@@ -14,7 +14,7 @@ IMAGES
 
 ## Valid Authentication Details
 
-- Patient ID: 11223344
+- Account ID: 12345678
 - Password: Password1
 - Social Security Number: AB11223344
 - Date of Birth: 1990/06/30

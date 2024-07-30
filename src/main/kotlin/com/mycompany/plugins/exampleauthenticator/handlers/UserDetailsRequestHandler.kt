@@ -28,18 +28,16 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
      */
     override fun preProcess(request: Request, response: Response): UserDetailsRequestModel
     {
-        val data = HashMap<String, Any>(2)
-
         response.setResponseModel(
             templateResponseModel(
-                data,
+                emptyMap(),
                 "authenticate/userdetails"
             ), ResponseModelScope.NOT_FAILURE
         )
 
         response.setResponseModel(
             templateResponseModel(
-                data,
+                emptyMap(),
                 "authenticate/userdetails"
             ), HttpStatus.BAD_REQUEST
         )
@@ -64,13 +62,13 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
         var validSocialSecurityNumber = false
         var validDateOfBirth = false
 
-        // Get the patient ID from the session
-        val patientId = _config.sessionManager.get("patientId")?.attributeValue?.value as String?
+        // Get the account ID from the session
+        val accountId = _config.sessionManager.get("accountId")?.attributeValue?.value as String?
             ?: throw _config.exceptionFactory.badRequestException(
                 ErrorCode.MISSING_PARAMETERS,
-                "The user details form could not find a patient ID in the session")
+                "The user details form could not find a account ID in the session")
 
-        val user = _config.getAccountManager().getByUserName(patientId)
+        val user = _config.getAccountManager().getByUserName(accountId)
         if (user != null) {
 
             if (validateSocialSecurityNumber(user, model))
@@ -102,11 +100,8 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
             )
         }
 
-        // If the deeper validation fails, post back data to avoid losing user input
-        response.setResponseModel(
-            templateResponseModel(model?.dataOnError(), "authenticate/userdetails"),
-            HttpStatus.BAD_REQUEST
-        )
+        _logger.error("*** POSTBACK ON FAILURE {}", model!!.dataOnError()["socialSecurityNumber"])
+        response.putViewData("_postBack", model?.dataOnError(), ResponseModelScope.FAILURE)
         return Optional.empty()
     }
 
@@ -132,10 +127,8 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
         if (accountSocialSecurityNumber != null)
         {
             val enteredSocialSecurityNumber = model?.socialSecurityNumber
-            _logger.error("*** SSN DETAILS {} {} ***", enteredSocialSecurityNumber, accountSocialSecurityNumber)
             if (enteredSocialSecurityNumber == accountSocialSecurityNumber)
             {
-                _logger.error("*** Entered SSN is correct ***")
                 return true
             }
         }
@@ -149,7 +142,6 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
         if (accountDateOfBirth != null)
         {
             val enteredDateOfBirth = model?.dateOfBirth?.replace("/", "")
-            _logger.error("*** DOB DETAILS {} {} ***", enteredDateOfBirth, accountDateOfBirth)
             if (enteredDateOfBirth == accountDateOfBirth)
             {
                 return true

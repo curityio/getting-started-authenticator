@@ -8,6 +8,7 @@ import se.curity.identityserver.sdk.web.Response
 import se.curity.identityserver.sdk.web.ResponseModel.templateResponseModel
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import se.curity.identityserver.sdk.errors.ErrorCode
 import java.util.*
 
 /*
@@ -32,6 +33,7 @@ class SuccessRequestHandler(private val _config: ExampleAuthenticatorPluginConfi
      * This handler requires no custom page load logic
      */
     override fun get(requestModel: SuccessRequestModel, response: Response): Optional<AuthenticationResult> {
+
         return Optional.empty()
     }
 
@@ -40,8 +42,17 @@ class SuccessRequestHandler(private val _config: ExampleAuthenticatorPluginConfi
      */
     override fun post(requestModel: SuccessRequestModel, response: Response): Optional<AuthenticationResult> {
 
-        val username = "demouser"
-        return Optional.of(AuthenticationResult(username))
+        val accountId = _config.sessionManager.get("accountId")?.attributeValue?.value as String?
+            ?: throw _config.exceptionFactory.badRequestException(
+                ErrorCode.MISSING_PARAMETERS,
+                "The success form could not find the account ID field n the session")
+
+        val detailsVerified = _config.sessionManager.get("detailsVerified")?.attributeValue?.value as Boolean?
+            ?: throw _config.exceptionFactory.badRequestException(
+                ErrorCode.MISSING_PARAMETERS,
+                "The success form could not find the detailsVerified field in the session")
+
+        return Optional.of(AuthenticationResult(accountId))
     }
 
     /*
