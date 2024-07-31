@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.authenticate.handlers.representations
+package com.mycompany.plugins.exampleauthenticator.authenticate.representations
 
 import se.curity.identityserver.sdk.haapi.*
 import se.curity.identityserver.sdk.http.HttpMethod

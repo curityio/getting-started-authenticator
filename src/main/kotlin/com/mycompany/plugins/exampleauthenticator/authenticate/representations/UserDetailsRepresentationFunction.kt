@@ -1,11 +1,10 @@
-package com.mycompany.plugins.exampleauthenticator.authenticate.handlers.representations
+package com.mycompany.plugins.exampleauthenticator.authenticate.representations
 
 import se.curity.identityserver.sdk.haapi.*
 import se.curity.identityserver.sdk.http.HttpMethod
 import se.curity.identityserver.sdk.http.MediaType
 import se.curity.identityserver.sdk.web.Representation
 import java.net.URI
-import java.util.*
 
 /*
  * The HAAPI representation for form 2 of the authentication wizard
@@ -33,13 +32,5 @@ class UserDetailsRepresentationFunction : RepresentationFunction {
                 fields.addTextField("dateOfBirth", Message.ofKey("authenticator.example.authenticate.view.date-of-birth"), dateOfBirthValue)
             }
         }
-    }
-
-    override fun applyError(
-        representationModel: ErrorRepresentationModel?,
-        factory: ProblemRepresentationFactory?
-    ): Optional<out Representation?> {
-
-        return super.applyError(representationModel, factory)
     }
 }
