@@ -1,6 +1,6 @@
 # Getting Started Authenticator
 
-An example authenticator for training purposes, to explain core behaviors when you implement custom authentication.
+An example authenticator for training purposes, to explain custom authentication core behaviors.
 
 ## Core Behaviors
 
@@ -11,7 +11,7 @@ The authenticator demonstrates the initial areas you need to understand when get
 - Backend processing to receive form data, validate it and return error messages
 - Backend identity logic and the use of SDK objects
 
-The [Implement Custom Authentication using Plugins](resources/learn/getting-started-authentication-plugins/) tutorial explains the code and concepts.\
+The [Implement Custom Authentication using Plugins](resources/learn/getting-started-authentication-plugins/) tutorial explains the code and core concepts.\
 Once this plugin is understood, you are well-placed to implement many other custom authentication use cases.
 
 ## Prerequisites
@@ -22,12 +22,14 @@ First ensure that you have these prerequisites:
 - Maven
 - Docker
 - An [ngrok setup](https://curity.io/resources/learn/expose-local-curity-ngrok/)
-- Copy a license.json file for the Curity Identity Server to the root folder
 
 To run the plugin in native mode you also need a mobile development environment:
 
 - Android Studio
 - Xcode
+
+Also ensure that you have a `license.json file` for the Curity Identity Server, such as a trial license.\
+The license should grant access to the plugin SDK and the Hypermedia Authentication API.
 
 ## Deploy the Authorization Server and Plugin
 
