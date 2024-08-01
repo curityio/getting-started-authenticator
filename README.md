@@ -45,6 +45,13 @@ This will give you an external base URL such as the following:
 https://aa96-86-189-132-17.ngrok-free.app
 ```
 
+You can inspect the example plugin's configuration settings by running the Admin UI with the following details.\
+Then navigate to `System / Authentication Service / Authewnticators / Example`.
+
+- URL: https://localhost:6749/admin
+- Password: Password1
+
+
 Re-run the `deploy.sh` script whenever you change the plugin's code.
 
 ## Test a Browser-Based Flow using HTML Forms
@@ -57,7 +64,7 @@ Create an environment using the ngrok base URL, then add a code flow with the fo
 - Scope: openid
 - Prompt: login
 
-Run the code flow to step through the authenticator's screens.
+Run the code flow to step through the authentication plugin's screens.
 
 ## Test a Hypermedia Authentication API using Native Forms
 
@@ -76,7 +83,7 @@ Edit both of these files and change the base URL to the ngrok value, then run th
 ## Test Custom Logins
 
 An example user is created at the end of the [deployment data script](./resources/data-backup.sql).\
-The user account includes custom attributes, and the plugin shows how to include them in authentication:
+The user account includes custom attributes, and the plugin uses them during authentication:
 
 - Account ID: 12345678
 - Password: Password1
@@ -96,16 +103,15 @@ Finally, there is an authentication success screen:
 
 ![Wizard form 3](images/wizard-form-3.jpg)
 
-## Designing Authentication
+## Designing Custom Authentication
 
-There are often better ways to implement authentication than a wizard-based approach.\
-For example, you can compose authenticators and authentication actions to reduce work.\
-Yet the example plugin demonstrates that you have full control over the important areas:
+There are often better ways to implement custom authentication than a wizard-based approach.\
+For example, you can compose [authenticators](https://curity.io/resources/learn/authentication-overview/) and [authentication actions](https://curity.io/resources/learn/control-authentication-using-actions/), to reduce work.\
+Yet the example plugin demonstrates that you have full control over all of the important areas:
 
 - Forms, form elements and user experience
 - Data, validation and identity logic
 
-## Further information
+## More information
 
-- Read the [Authentication Overview](https://curity.io/resources/learn/authentication-overview/) to learn more about authentication capabilities
 - Visit [curity.io](https://curity.io/) for more information about the Curity Identity Server.
