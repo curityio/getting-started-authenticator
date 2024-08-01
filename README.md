@@ -6,17 +6,17 @@ An example authenticator for training purposes, to explain custom authentication
 
 The authenticator demonstrates the initial areas you need to understand when getting started with plugins:
 
-- Exposing HTTP endpoints for getting forms and receiving form data
-- Frontend development to create both HTML and native forms
-- Backend processing to receive form data, validate it and return error messages
-- Backend identity logic and the use of SDK objects
+- Exposing HTTP endpoints for login forms.
+- Frontend development to create both HTML and native forms.
+- Backend processing to receive form data, validate it and return error messages.
+- Backend identity logic and the use of SDK objects.
 
-The [Implement Custom Authentication using Plugins](resources/learn/getting-started-authentication-plugins/) tutorial explains the code and core concepts.\
+The [Getting Started with Authentication using Plugins](resources/learn/getting-started-authentication-plugins/) tutorial explains the code and core concepts.\
 Once this plugin is understood, you are well-placed to implement many other custom authentication use cases.
 
 ## Prerequisites
 
-First ensure that you have these prerequisites:
+First ensure that your environment meets the prerequisites:
 
 - Java 21 SDK
 - Maven
@@ -28,7 +28,7 @@ To run the plugin in native mode you also need a mobile development environment:
 - Android Studio
 - Xcode
 
-Also ensure that you have a `license.json file` for the Curity Identity Server, such as a trial license.\
+Also ensure that you have a `license.json` file for the Curity Identity Server, such as a trial license.\
 The license should grant access to the plugin SDK and the Hypermedia Authentication API.
 
 ## Deploy the Authorization Server and Plugin
@@ -57,7 +57,7 @@ Re-run the `deploy.sh` script whenever you change the plugin's code.
 ## Test a Browser-Based Flow using HTML Forms
 
 Follow the [OAuth tools website tutorial](https://curity.io/resources/learn/test-using-oauth-tools/) to enable a test setup.\
-Create an environment using the ngrok base URL, then add a code flow with the following details:
+Create an environment using the ngrok base URL, then configure a code flow with the following details:
 
 - Client ID: demo-web-client
 - Client Secret: Password1
@@ -82,7 +82,7 @@ Edit both of these files and change the base URL to the ngrok value, then run th
 
 ## Test Custom Logins
 
-An example user is created at the end of the [deployment data script](./resources/data-backup.sql).\
+An example user account is created at the end of the [deployment data script](./resources/data-backup.sql).\
 The user account includes custom attributes, and the plugin uses them during authentication:
 
 - Account ID: 12345678
