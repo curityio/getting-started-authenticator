@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.authenticate.models
+package com.example.plugins.exampleauthenticator.authenticate.models
 
 import jakarta.validation.Valid
 import jakarta.validation.constraints.NotBlank

@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.authenticate.models
+package com.example.plugins.exampleauthenticator.authenticate.models
 
 import se.curity.identityserver.sdk.web.Request
 

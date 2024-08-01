@@ -1,4 +1,4 @@
-package com.mycompany.plugins.exampleauthenticator.config;
+package com.example.plugins.exampleauthenticator.config;
 
 import se.curity.identityserver.sdk.config.Configuration
 import se.curity.identityserver.sdk.config.annotation.Description
@@ -8,14 +8,15 @@ import se.curity.identityserver.sdk.service.SessionManager
 import se.curity.identityserver.sdk.service.authentication.AuthenticatorInformationProvider
 import se.curity.identityserver.sdk.service.credential.UserCredentialManager
 
+@Description("An example wizard-based authenticator plugin")
 interface ExampleAuthenticatorPluginConfig : Configuration
 {
     // You must configure an account manager against the plugin
-    @Description("The Credential Manager used to verify the password")
+    @Description("The credential manager used to verify account IDs and passwords")
     fun getCredentialManager(): UserCredentialManager
 
     // You must configure a credential manager against the plugin
-    @Description("The Account Manager is used to fetch the account")
+    @Description("The account manager used to fetch user details")
     fun getAccountManager(): AccountManager
 
     // The session manager saves data between forms

@@ -1,7 +1,7 @@
-package com.mycompany.plugins.exampleauthenticator.authenticate.handlers
+package com.example.plugins.exampleauthenticator.authenticate.handlers
 
-import com.mycompany.plugins.exampleauthenticator.config.ExampleAuthenticatorPluginConfig
-import com.mycompany.plugins.exampleauthenticator.authenticate.models.SuccessRequestModel
+import com.example.plugins.exampleauthenticator.config.ExampleAuthenticatorPluginConfig
+import com.example.plugins.exampleauthenticator.authenticate.models.SuccessRequestModel
 import se.curity.identityserver.sdk.authentication.AuthenticationResult
 import se.curity.identityserver.sdk.authentication.AuthenticatorRequestHandler
 import se.curity.identityserver.sdk.web.Request
