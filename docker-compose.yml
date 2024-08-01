@@ -1,0 +1,25 @@
+services:
+  curity-idsvr:
+    image: curity.azurecr.io/curity/idsvr:latest
+    ports:
+     - 6749:6749
+     - 8443:8443
+    environment:
+      ADMIN: 'true'
+      LOGGING_LEVEL: 'INFO'
+      BASE_URL: "${BASE_URL}"
+    volumes:
+     - ./license.json:/opt/idsvr/etc/init/license/license.json
+     - ./resources/curity-config.xml:/opt/idsvr/etc/init/curity-config.xml
+     - ./target/example-authenticator-1.0.0-SNAPSHOT.jar:/opt/idsvr/usr/share/plugins/example-authenticator/example-authenticator-1.0.0-SNAPSHOT.jar
+
+  curity-data:
+    image: postgres:16.3
+    hostname: dbserver
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./resources/data-backup.sql:/docker-entrypoint-initdb.d/data-backup.sql
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'Password1'
+      POSTGRES_DB: 'idsvr'
