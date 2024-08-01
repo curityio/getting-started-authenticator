@@ -5,7 +5,6 @@ import se.curity.identityserver.sdk.http.HttpMethod
 import se.curity.identityserver.sdk.http.MediaType
 import se.curity.identityserver.sdk.web.Representation
 import java.net.URI
-import java.util.*
 
 /*
  * The HAAPI representation for form 3 of the authentication wizard
@@ -28,13 +27,5 @@ class SuccessRepresentationFunction : RepresentationFunction {
                 Message.ofKey("authenticator.example.authenticate.view.next")
             )
         }
-    }
-
-    override fun applyError(
-        representationModel: ErrorRepresentationModel?,
-        factory: ProblemRepresentationFactory?
-    ): Optional<out Representation?> {
-
-        return super.applyError(representationModel, factory)
     }
 }

@@ -11,6 +11,11 @@ if [ ! -f ./license.json ]; then
 fi
 
 #
+# Prevent accidental check-ins by Curity developers
+#
+cp ./hooks/pre-commit .git/hooks
+
+#
 # Build the latest plugin
 #
 mvn package
