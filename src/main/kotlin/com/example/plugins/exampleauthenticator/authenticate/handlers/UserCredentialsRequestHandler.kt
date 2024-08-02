@@ -1,19 +1,21 @@
 package com.example.plugins.exampleauthenticator.authenticate.handlers
 
-import com.example.plugins.exampleauthenticator.config.ExampleAuthenticatorPluginConfig
 import com.example.plugins.exampleauthenticator.authenticate.models.UserCredentialsPost
 import com.example.plugins.exampleauthenticator.authenticate.models.UserCredentialsRequestModel
+import com.example.plugins.exampleauthenticator.config.ExampleAuthenticatorPluginConfig
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import se.curity.identityserver.sdk.attribute.Attribute
 import se.curity.identityserver.sdk.attribute.SubjectAttributes
 import se.curity.identityserver.sdk.authentication.AuthenticationResult
 import se.curity.identityserver.sdk.authentication.AuthenticatorRequestHandler
+import se.curity.identityserver.sdk.haapi.ProblemContract
 import se.curity.identityserver.sdk.http.RedirectStatusCode
 import se.curity.identityserver.sdk.service.credential.CredentialVerificationResult
 import se.curity.identityserver.sdk.web.Request
 import se.curity.identityserver.sdk.web.Response
 import se.curity.identityserver.sdk.web.Response.ResponseModelScope
+import se.curity.identityserver.sdk.web.ResponseModel
 import se.curity.identityserver.sdk.web.ResponseModel.templateResponseModel
 import se.curity.identityserver.sdk.web.alerts.ErrorMessage
 import java.util.*
@@ -72,6 +74,11 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
         // If the deeper validation fails, post back data to avoid losing user input
         response.addErrorMessage(ErrorMessage.withMessage("validation.error.incorrect.credentials"))
         response.putViewData("_postBack", model?.dataOnError(), ResponseModelScope.FAILURE)
+
+        // This response model is used by HAAPI clients
+        val errorModel = ResponseModel.problemResponseModel(ProblemContract.Types.IncorrectCredentials.TYPE)
+        response.setResponseModel(errorModel, ResponseModelScope.FAILURE)
+
         return Optional.empty()
     }
 

@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import se.curity.identityserver.sdk.attribute.AccountAttributes
 import se.curity.identityserver.sdk.attribute.Attribute
 import se.curity.identityserver.sdk.errors.ErrorCode
+import se.curity.identityserver.sdk.haapi.ProblemContract
+import se.curity.identityserver.sdk.web.ResponseModel
 import java.util.*
 
 /*
@@ -94,7 +96,13 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
             )
         }
 
+        // If the deeper validation fails, post back data to avoid losing user input
         response.putViewData("_postBack", model?.dataOnError(), ResponseModelScope.FAILURE)
+
+        // This response model is used by HAAPI clients
+        val errorModel = ResponseModel.problemResponseModel(ProblemContract.Types.InvalidInput.TYPE)
+        response.setResponseModel(errorModel, ResponseModelScope.FAILURE)
+
         return Optional.empty()
     }
 
