@@ -66,7 +66,7 @@ Create an environment using the ngrok base URL, then configure a code flow with 
 
 Run the code flow to step through the authentication plugin's screens.
 
-## Test a Hypermedia Authentication API using Native Forms
+## Test a Hypermedia Authentication API Flow using Native Forms
 
 Clone the HAAPI code examples with these commands:
 
@@ -75,7 +75,7 @@ git clone https://github.com/curityio/android-haapi-ui-sdk-demo
 git clone https://github.com/curityio/ios-haapi-ui-sdk-demo
 ```
 
-Edit both of these files and change the base URL to the ngrok value, then run the apps:
+Edit configuration files and change the base URL to the ngrok value, then run the apps:
 
 - For Android, the configuration file is at `app/src/main/java/io/curity/haapidemo/Configuration.kt`.
 - For iOS, the configuration file is at `iOS/Configuration.swift`.
