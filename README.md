@@ -1,6 +1,6 @@
 # Getting Started Authenticator
 
-An example authenticator for training purposes, to explain custom authentication core behaviors.
+An example authenticator plugin for training purposes, to explain authentication plugin core behaviors.
 
 ## Core Behaviors
 
