@@ -55,8 +55,6 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
     override fun post(requestModel: UserDetailsRequestModel, response: Response): Optional<AuthenticationResult>
     {
         val model = requestModel.postRequestModel
-        var validSocialSecurityNumber = false
-        var validDateOfBirth = false
 
         // Get the account ID from the session
         val accountId = _config.sessionManager.get("accountId")?.attributeValue?.value as String?
@@ -64,31 +62,11 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
                 ErrorCode.MISSING_PARAMETERS,
                 "The user details form could not find a account ID in the session")
 
+        // Validate input
         val user = _config.getAccountManager().getByUserName(accountId)
-        if (user != null) {
-
-            if (validateSocialSecurityNumber(user, model))
-            {
-                validSocialSecurityNumber = true
-            }
-            else
-            {
-                response.addErrorMessage(ErrorMessage.withMessage("validation.error.incorrect.social-security-number"))
-            }
-
-            if (validateDateOfBirth(user, model))
-            {
-                validDateOfBirth = true
-            }
-            else
-            {
-                response.addErrorMessage(ErrorMessage.withMessage("validation.error.incorrect.date-of-birth"))
-            }
-        }
-
-        // On success, add a value to the session and navigate to the next form of the authentication wizard
-        if (validSocialSecurityNumber && validDateOfBirth)
+        if (validateSocialSecurityNumber(user, model, response) && validateDateOfBirth(user, model, response))
         {
+            // On success, add a value to the session and navigate to the next form of the authentication wizard
             _config.sessionManager.put(Attribute.of("detailsVerified", true));
             throw _config.exceptionFactory.redirectException(
                 "${_config.authenticatorInformationProvider.fullyQualifiedAuthenticationUri}/success",
@@ -96,10 +74,10 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
             )
         }
 
-        // If the deeper validation fails, post back data to avoid losing user input
+        // If the deeper validation fails, post back data to avoid HTML forms losing user input
         response.putViewData("_postBack", model?.dataOnError(), ResponseModelScope.FAILURE)
 
-        // This response model is used by HAAPI clients
+        // Ensure that HAAPI treats this as an invalid input error and does not dismiss the form
         val errorModel = ResponseModel.problemResponseModel(ProblemContract.Types.InvalidInput.TYPE)
         response.setResponseModel(errorModel, ResponseModelScope.FAILURE)
 
@@ -107,7 +85,7 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
     }
 
     /*
-     * When model validation fails, this method ensures that the user input is maintained
+     * When model validation fails, this method ensures that HTML forms maintain user input
      */
     override fun onRequestModelValidationFailure(
         request: Request,
@@ -115,31 +93,30 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
         errorMessages: Set<ErrorMessage?>?
     ) {
 
-        // Post back data to avoid losing user input
         if (request.isPostRequest) {
             val model = UserDetailsPost(request)
             response.putViewData("_postBack", model.dataOnError(), ResponseModelScope.FAILURE)
         }
     }
 
-    private fun validateSocialSecurityNumber(user: AccountAttributes, model: UserDetailsPost?): Boolean
+    private fun validateSocialSecurityNumber(user: AccountAttributes?, model: UserDetailsPost?, response: Response): Boolean
     {
-        val accountSocialSecurityNumber = user.get("socialSecurityNumber")?.attributeValue?.value
+        val accountSocialSecurityNumber = user?.get("socialSecurityNumber")?.attributeValue?.value
         if (accountSocialSecurityNumber != null)
         {
-            val enteredSocialSecurityNumber = model?.socialSecurityNumber
-            if (enteredSocialSecurityNumber == accountSocialSecurityNumber)
+            if (model?.socialSecurityNumber == accountSocialSecurityNumber)
             {
                 return true
             }
         }
 
+        response.addErrorMessage(ErrorMessage.withMessage("validation.error.incorrect.social-security-number"))
         return false
     }
 
-    private fun validateDateOfBirth(user: AccountAttributes, model: UserDetailsPost?): Boolean
+    private fun validateDateOfBirth(user: AccountAttributes?, model: UserDetailsPost?, response: Response): Boolean
     {
-        val accountDateOfBirth = user.get("dateOfBirth")?.attributeValue?.value
+        val accountDateOfBirth = user?.get("dateOfBirth")?.attributeValue?.value
         if (accountDateOfBirth != null)
         {
             val enteredDateOfBirth = model?.dateOfBirth?.replace("/", "")
@@ -149,6 +126,7 @@ class UserDetailsRequestHandler(private val _config: ExampleAuthenticatorPluginC
             }
         }
 
+        response.addErrorMessage(ErrorMessage.withMessage("validation.error.incorrect.date-of-birth"))
         return false
     }
 

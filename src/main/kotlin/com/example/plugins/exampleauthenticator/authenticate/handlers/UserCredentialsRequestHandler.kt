@@ -71,19 +71,19 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
                 RedirectStatusCode.MOVED_TEMPORARILY)
         }
 
-        // If the deeper validation fails, post back data to avoid losing user input
+        // If the deeper validation fails, post back data to avoid HTML forms losing user input
         response.addErrorMessage(ErrorMessage.withMessage("validation.error.incorrect.credentials"))
         response.putViewData("_postBack", model?.dataOnError(), ResponseModelScope.FAILURE)
 
-        // This response model is used by HAAPI clients
-        val errorModel = ResponseModel.problemResponseModel(ProblemContract.Types.IncorrectCredentials.TYPE)
+        // Ensure that HAAPI treats this as an invalid input error and does not dismiss the form
+        val errorModel = ResponseModel.problemResponseModel(ProblemContract.Types.InvalidInput.TYPE)
         response.setResponseModel(errorModel, ResponseModelScope.FAILURE)
 
         return Optional.empty()
     }
 
     /*
-     * When model validation fails, this method ensures that the user input is maintained
+     * When model validation fails, this method ensures that HTML forms maintain user input
      */
     override fun onRequestModelValidationFailure(
         request: Request,
@@ -91,7 +91,6 @@ class UserCredentialsRequestHandler(private val _config: ExampleAuthenticatorPlu
         errorMessages: Set<ErrorMessage?>?
     )
     {
-        // Post back data to avoid losing user input
         if (request.isPostRequest) {
             val model = UserCredentialsPost(request)
             response.putViewData("_postBack", model.dataOnError(), ResponseModelScope.FAILURE)
