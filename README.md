@@ -29,6 +29,7 @@ If you want to run the example setup included in this repository, you will also 
 - Docker,
 - an ngrok setup (Follow the instructions from the **ngrok** part of [this tutorial](https://curity.io/resources/learn/expose-local-curity-ngrok/#ngrok) to configure ngrok on your machine.),
 - curl,
+- jq (https://jqlang.github.io/jq/download/),
 - a license for the Curity Identity Server, such as a trial license.
 
 You should put the license into a `license.json` file in the `example` directory. The license should grant access to the plugin SDK and the Hypermedia Authentication API. You can get a license from the [Curity Developer Portal](https://developer.curity.io/).
