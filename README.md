@@ -1,5 +1,8 @@
 # Getting Started Authenticator
 
+[![Quality](https://img.shields.io/badge/quality-demo-red)](https://curity.io/resources/code-examples/status/)
+[![Availability](https://img.shields.io/badge/availability-source-blue)](https://curity.io/resources/code-examples/status/)
+
 An example authenticator plugin for training purposes, to explain authentication plugin core behaviors.
 
 ## Core Behaviors
@@ -11,27 +14,57 @@ The authenticator demonstrates the initial areas you need to understand when get
 - Backend processing to receive form data, validate it and return error messages.
 - Backend identity logic and the use of SDK objects.
 
-The [Getting Started with Authentication using Plugins](resources/learn/getting-started-authentication-plugins/) tutorial explains the code and core concepts.\
+The [Getting Started with Authentication using Plugins](https://curity.io/resources/learn/getting-started-authentication-plugins/) tutorial explains the code and core concepts.\
 Once this plugin is understood, you are well-placed to implement many other custom authentication use cases.
 
 ## Prerequisites
 
-First ensure that your environment meets the prerequisites:
+To build the plugin you will need the following tools:
 
 - Java 21 SDK
 - Maven
-- Docker
-- An [ngrok setup](https://curity.io/resources/learn/expose-local-curity-ngrok/)
 
-To run the plugin in native mode you also need a mobile development environment:
+If you want to run the example setup included in this repository, you will also need:
 
-- Android Studio
+- Docker,
+- an ngrok setup (Follow the instructions from the **ngrok** part of [this tutorial](https://curity.io/resources/learn/expose-local-curity-ngrok/#ngrok) to configure ngrok on your machine.),
+- curl,
+- a license for the Curity Identity Server, such as a trial license.
+
+You should put the license into a `license.json` file in the `example` directory. The license should grant access to the plugin SDK and the Hypermedia Authentication API. You can get a license from the [Curity Developer Portal](https://developer.curity.io/).
+
+If you want to test the authenticator from a native app you will also need a mobile development environment:
+
+- Android Studio, or
 - Xcode
 
-Also ensure that you have a `license.json` file for the Curity Identity Server, such as a trial license.\
-The license should grant access to the plugin SDK and the Hypermedia Authentication API.
+## Building the Plugin
 
-## Deploy the Authorization Server and Plugin
+To build the plugin run the following command:
+
+```
+mvn package
+```
+
+The command will create a plugin `jar` in the `target` directory.
+
+## Installing the Plugin
+
+To install the plugin, copy its `jar` file into `$IDSVR_HOME/usr/share/plugins/example-authenticator`. If you add any dependencies to the code make sure to also copy all their jars into that folder as well. In a production environment make sure to copy the plugin files into all instances of the Curity Identity Server.
+
+If you're using Docker to start the Curity Identity Server, you can put the plugin files in the container with a mounted volume. Add the following option to your `docker run` command:
+
+```bash
+-v ./target/example-authenticator-1.0.0-SNAPSHOT.jar:/opt/idsvr/usr/share/plugins/example-authenticator/example-authenticator-1.0.0-SNAPSHOT.jar
+```
+
+You can also easily mount the plugin files when using `docker compose`. See the `docker-compose.yml` file to see how we do it in the example deployment.
+
+## Running the Example
+
+You can use the provided resources in the `example` directory to run the example setup. This will build the plugin code and start an instance of the Curity Identity Server. The instance will be configured with the authenticator plugin so that you can quickly test how it works.
+
+### Deploy the Authorization Server and Plugin
 
 Run the following script to deploy the server components:
 
@@ -39,51 +72,45 @@ Run the following script to deploy the server components:
 ./deploy.sh
 ```
 
-This will give you an external base URL such as the following:
+You can inspect the example plugin's configuration settings using the Admin UI. In your browser, navigate to https://localhost:6749/admin and log in with `admin/Password1`. Then navigate to `System / Authentication Service / Authenticators / Example`.
 
-```text
-https://aa96-86-189-132-17.ngrok-free.app
-```
+Re-run the `deploy.sh` script whenever you change the plugin's code. Note that this will overwrite any configuration changes you make using the admin UI. If you want to keep the changes export configuration XML from the admin UI using the `Changes` -> `Download` menu option. Then put the downloaded XML in the `resources/curity-config.xml` file.
 
-You can inspect the example plugin's configuration settings by running the Admin UI with the following details.\
-Then navigate to `System / Authentication Service / Authewnticators / Example`.
+### Test a Browser-Based Flow Using HTML Forms
 
-- URL: https://localhost:6749/admin
-- Password: Password1
-
-
-Re-run the `deploy.sh` script whenever you change the plugin's code.
-
-## Test a Browser-Based Flow using HTML Forms
-
-Follow the [OAuth tools website tutorial](https://curity.io/resources/learn/test-using-oauth-tools/) to enable a test setup.\
-Create an environment using the ngrok base URL, then configure a code flow with the following details:
+Follow the **Configuring a Workspace** part of the [OAuth Tools tutorial](https://curity.io/resources/learn/test-using-oauth-tools/#configuring-a-workspace) to configure OAuth Tools for the example setup.\
+Then follow the **Test a Configured Flow** part of that tutorial and use the following details:
 
 - Client ID: demo-web-client
 - Client Secret: Password1
 - Scope: openid
-- Prompt: login
+- Prompt: login (This ensures that you will see the login screen on every login attempt.)
 
-Run the code flow to step through the authentication plugin's screens.
+Run the code flow to step through the authentication plugin's screens, as described [#below](#test-custom-logins).
 
-## Test a Hypermedia Authentication API Flow using Native Forms
+### Test a Hypermedia Authentication API Flow Using Native Forms
 
-Clone the HAAPI code examples with these commands:
+You can use the Curity-provided demo mobile apps to test the authenticator using HAAPI.
+
+For **Android** clone the following repo:
 
 ```bash
 git clone https://github.com/curityio/android-haapi-ui-sdk-demo
+```
+
+Then edit the configuration file `app/src/main/java/io/curity/haapidemo/Configuration.kt` and change the base URL to the ngrok value. Next, run the app.
+
+For **iOS** clone the following repo:
+
+```bash
 git clone https://github.com/curityio/ios-haapi-ui-sdk-demo
 ```
 
-Edit configuration files and change the base URL to the ngrok value, then run the apps:
+Then edit the configuration file `iOS/Configuration.swift` and change the base URL to the ngrok value. Next, run the app.
 
-- For Android, the configuration file is at `app/src/main/java/io/curity/haapidemo/Configuration.kt`.
-- For iOS, the configuration file is at `iOS/Configuration.swift`.
+### Test Custom Logins
 
-## Test Custom Logins
-
-An example user account is created at the end of the [deployment data script](./resources/data-backup.sql).\
-The user account includes custom attributes, and the plugin uses them during authentication:
+The example includes a user account with custom attributes, and the plugin uses them during authentication. (The user account is defined at the end of the [database backup file](./example/resources/data-backup.sql)). The attributes are:
 
 - Account ID: 12345678
 - Password: Password1
@@ -103,11 +130,21 @@ Finally, there is an authentication success screen:
 
 ![Wizard form 3](images/wizard-form-3.jpg)
 
+### Teardown
+
+Once you are finished with testing the solution run the following command to free the Docker resources:
+
+```bash
+docker compose down
+```
+
+Then stop `ngrok` to close the tunnel. On Linux/MacOS you can use this command to find the `ngrok` process ID: `ps aux | grep ngrok`, then close it using `kill`.
+
 ## Designing Custom Authentication
 
 There are often better ways to implement custom authentication than a wizard-based approach.\
 For example, you can compose [authenticators](https://curity.io/resources/learn/authentication-overview/) and [authentication actions](https://curity.io/resources/learn/control-authentication-using-actions/), to reduce work.\
-Yet the example plugin demonstrates that you have full control over all of the important areas:
+Yet the example plugin demonstrates that you have full control over all the important areas:
 
 - Forms, form elements and user experience
 - Data, validation and identity logic

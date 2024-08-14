@@ -11,11 +11,11 @@ import se.curity.identityserver.sdk.service.credential.UserCredentialManager
 @Description("An example wizard-based authenticator plugin")
 interface ExampleAuthenticatorPluginConfig : Configuration
 {
-    // You must configure an account manager against the plugin
+    // You must configure a credential manager against the plugin
     @Description("The credential manager used to verify account IDs and passwords")
     fun getCredentialManager(): UserCredentialManager
 
-    // You must configure a credential manager against the plugin
+    // You must configure an account manager against the plugin
     @Description("The account manager used to fetch user details")
     fun getAccountManager(): AccountManager
 
