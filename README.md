@@ -62,7 +62,7 @@ You can also easily mount the plugin files when using `docker compose`. See the 
 
 ## Running the Example
 
-You can use the provided resources in the `example` directory to run the example setup. This will build the plugin code and start an instance of the Curity Identity Server. The instance will be configured with the authenticator plugin so that you can quickly test how it works.
+You can use the provided resources in the `example` directory to run the example setup. This will build the plugin code and start an instance of the Curity Identity Server. The instance will be configured with the authenticator plugin, relevant clients (also for HAAPI integration) and an example user account. With the example setup you can quickly test how the authenticator works using both browser-based clients and native applications.
 
 ### Deploy the Authorization Server and Plugin
 
