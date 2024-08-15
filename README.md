@@ -24,7 +24,7 @@ To build the plugin you will need the following tools:
 - Java 21 SDK
 - Maven
 
-If you want to run the example setup included in this repository, you will also need:
+If you want to run the example deployment included in this repository, you will also need:
 
 - Docker,
 - an ngrok setup (Follow the instructions from the **ngrok** part of [this tutorial](https://curity.io/resources/learn/expose-local-curity-ngrok/#ngrok) to configure ngrok on your machine.),
@@ -32,7 +32,7 @@ If you want to run the example setup included in this repository, you will also 
 - jq (https://jqlang.github.io/jq/download/),
 - a license for the Curity Identity Server, such as a trial license.
 
-You should put the license into a `license.json` file in the `example` directory. The license should grant access to the plugin SDK and the Hypermedia Authentication API. You can get a license from the [Curity Developer Portal](https://developer.curity.io/).
+You should put the license into a `license.json` file in the `deployment` directory. The license should grant access to the plugin SDK and the Hypermedia Authentication API. You can get a license from the [Curity Developer Portal](https://developer.curity.io/).
 
 If you want to test the authenticator from a native app you will also need a mobile development environment:
 
@@ -63,14 +63,14 @@ You can also easily mount the plugin files when using `docker compose`. See the 
 
 ## Running the Example
 
-You can use the provided resources in the `example` directory to run the example setup. This will build the plugin code and start an instance of the Curity Identity Server. The instance will be configured with the authenticator plugin, relevant clients (also for HAAPI integration) and an example user account. With the example setup you can quickly test how the authenticator works using both browser-based clients and native applications.
+You can use the provided resources in the `deployment` directory to run the example setup. This will build the plugin code and start an instance of the Curity Identity Server. The instance will be configured with the authenticator plugin, relevant clients (also for HAAPI integration) and an example user account. With the example setup you can quickly test how the authenticator works using both browser-based clients and native applications.
 
 ### Deploy the Authorization Server and Plugin
 
 Run the following script to deploy the server components:
 
 ```bash
-./deploy.sh
+./deployment/deploy.sh
 ```
 
 You can inspect the example plugin's configuration settings using the Admin UI. In your browser, navigate to https://localhost:6749/admin and log in with `admin/Password1`. Then navigate to `System / Authentication Service / Authenticators / Example`.
@@ -111,7 +111,7 @@ Then edit the configuration file `iOS/Configuration.swift` and change the base U
 
 ### Test Custom Logins
 
-The example includes a user account with custom attributes, and the plugin uses them during authentication. (The user account is defined at the end of the [database backup file](./example/resources/data-backup.sql)). The attributes are:
+The example deployment includes a user account with custom attributes, and the plugin uses them during authentication. (The user account is defined at the end of the [database backup file](./example/resources/data-backup.sql)). The attributes are:
 
 - Account ID: 12345678
 - Password: Password1

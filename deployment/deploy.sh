@@ -6,7 +6,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 # Check for a license file
 #
 if [ ! -f ./license.json ]; then
-  echo 'Please copy a license.json file into the root folder'
+  echo 'Please copy a license.json file into the deployment folder'
   exit 1
 fi
 
@@ -28,8 +28,8 @@ fi
 #
 # Copy the plugin jar
 #
-cp ./target/example-authenticator-1.0.0-SNAPSHOT.jar ./example/build/example-authenticator-1.0.0-SNAPSHOT.jar
-cd example
+cp ./target/example-authenticator-1.0.0-SNAPSHOT.jar ./deployment/build/example-authenticator-1.0.0-SNAPSHOT.jar
+cd deployment
 
 #
 # Clear the data folder
