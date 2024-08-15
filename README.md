@@ -67,10 +67,10 @@ You can use the provided resources in the `deployment` directory to run the exam
 
 ### Deploy the Authorization Server and Plugin
 
-Run the following script to deploy the server components:
+Run the following script from the `deployment` folder, to deploy the server components:
 
 ```bash
-./deployment/deploy.sh
+./deploy.sh
 ```
 
 You can inspect the example plugin's configuration settings using the Admin UI. In your browser, navigate to https://localhost:6749/admin and log in with `admin/Password1`. Then navigate to `System / Authentication Service / Authenticators / Example`.
@@ -133,7 +133,7 @@ Finally, there is an authentication success screen:
 
 ### Teardown
 
-Once you are finished with testing the solution run the following command to free the Docker resources:
+Once you are finished with testing the solution run the following command from the `deployment` folder:
 
 ```bash
 docker compose down
