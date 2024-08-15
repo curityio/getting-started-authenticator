@@ -6,18 +6,19 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 # Check for a license file
 #
 if [ ! -f ./license.json ]; then
-  echo 'Please copy a license.json file into the root folder'
+  echo 'Please copy a license.json file into the deployment folder'
   exit 1
 fi
 
 #
-# Prevent accidental check-ins by Curity developers
+# Prevent accidental check-ins of licenses
 #
-cp ./hooks/pre-commit .git/hooks
+cp ./hooks/pre-commit ../.git/hooks
 
 #
 # Build the latest plugin
 #
+cd ..
 mvn package
 if [ $? -ne 0 ]; then
   echo 'Problem encountered building plugin code'
@@ -25,7 +26,13 @@ if [ $? -ne 0 ]; then
 fi
 
 #
-# Share the data folder
+# Copy the plugin jar
+#
+cp ./target/example-authenticator-1.0.0-SNAPSHOT.jar ./deployment/build/example-authenticator-1.0.0-SNAPSHOT.jar
+cd deployment
+
+#
+# Clear the data folder
 #
 rm -rf data 2>/dev/null
 
@@ -39,7 +46,7 @@ fi
 export BASE_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[] | select(.proto == "https") | .public_url')
 
 #
-# Deploy it with an instance of the Curity Identity Server
+# Deploy an instance of the Curity Identity Server
 #
 docker compose down
 docker compose up

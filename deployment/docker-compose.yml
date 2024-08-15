@@ -11,7 +11,7 @@ services:
     volumes:
      - ./license.json:/opt/idsvr/etc/init/license/license.json
      - ./resources/curity-config.xml:/opt/idsvr/etc/init/curity-config.xml
-     - ./target/example-authenticator-1.0.0-SNAPSHOT.jar:/opt/idsvr/usr/share/plugins/example-authenticator/example-authenticator-1.0.0-SNAPSHOT.jar
+     - ./build/example-authenticator-1.0.0-SNAPSHOT.jar:/opt/idsvr/usr/share/plugins/example-authenticator/example-authenticator-1.0.0-SNAPSHOT.jar
 
   curity-data:
     image: postgres:16.3
