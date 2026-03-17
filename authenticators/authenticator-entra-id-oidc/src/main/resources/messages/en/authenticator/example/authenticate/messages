@@ -1,0 +1,20 @@
+meta.title.usercredentials=Enter Your Credentials
+meta.title.userdetails=Confirm Your Details
+meta.title.success=Authentication Successful
+
+view.accountid=Account ID
+view.password=Password
+validation.error.accountid.format=The account ID must be 8 numeric digits
+validation.error.password.required=Please enter your password
+validation.error.incorrect.credentials=The credentials entered were not valid
+
+view.social-security-number=Social Security Number
+view.date-of-birth=Date Of Birth
+validation.error.social-security-number.format=Please enter your social security number
+validation.error.date-of-birth.format=Please enter your date of birth in the format YYYY/MM/DD
+validation.error.social-security-number.required=Please enter your social security number
+validation.error.incorrect.social-security-number=The social security number does not match your account
+validation.error.incorrect.date-of-birth=The date of birth does not match your account
+
+view.next=Next
+view.continue=Continue
