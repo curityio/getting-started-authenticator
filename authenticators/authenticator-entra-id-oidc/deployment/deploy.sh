@@ -13,7 +13,8 @@ fi
 #
 # Prevent accidental check-ins of licenses
 #
-cp ./hooks/pre-commit ../.git/hooks
+GIT_ROOT=$(git -C . rev-parse --show-toplevel)
+cp ./hooks/pre-commit "${GIT_ROOT}/.git/hooks/pre-commit"
 
 #
 # Build the latest plugin
@@ -28,7 +29,13 @@ fi
 #
 # Copy the plugin jar
 #
-cp ./target/example-authenticator-1.0.0-SNAPSHOT.jar ./deployment/build/example-authenticator-1.0.0-SNAPSHOT.jar
+mkdir -p ./deployment/build
+JAR=$(find ./target -maxdepth 1 -name "*.jar" | head -1)
+if [ -z "$JAR" ]; then
+  echo 'Could not find plugin jar in target directory'
+  exit 1
+fi
+cp "$JAR" ./deployment/build/plugin.jar
 cd deployment
 
 #
